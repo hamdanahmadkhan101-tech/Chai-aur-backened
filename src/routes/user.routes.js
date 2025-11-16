@@ -1,6 +1,12 @@
 import { Router } from "express";
-import { registerUser } from "../controllers/user.controller.js";
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  refreshAccessToken,
+} from "../controllers/user.controller.js";
 import { uploadImage, uploadVideo } from "../middlewares/multer.middleware.js";
+import { authenticateUser } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 // Import your middleware and controllers here
@@ -18,5 +24,10 @@ router.route("/register").post(
   ]),
   registerUser
 );
+
+router.route("/login").post(loginUser);
+//secured route
+router.route("/logout").post(authenticateUser, logoutUser);
+router.route("/refresh-token").post(refreshAccessToken);
 
 export default router;
