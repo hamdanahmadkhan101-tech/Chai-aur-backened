@@ -29,11 +29,13 @@ const registerUser = asyncHandler(async (req, res, next) => {
     throw new ApiError(400, "Please provide a valid email address");
   }
 
+  // Check if user exists BEFORE processing files
   const existingUser = await User.findOne({ $or: [{ email }, { username }] });
   if (existingUser) {
     throw new ApiError(409, "User with given email or username already exists");
   }
 
+  // Only process files if user doesn't exist
   const avatarFilesPath = req.files?.avatar?.[0]?.path;
   const coverImagePath = req.files?.coverImage?.[0]?.path || null;
   if (!avatarFilesPath) {
