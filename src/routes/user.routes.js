@@ -4,7 +4,7 @@ import {
   loginUser,
   logoutUser,
   refreshAccessToken,
-} from "../controllers/user.controller.js";
+} from "../controllers/user/index.js";
 import { uploadImage, uploadVideo } from "../middlewares/multer.middleware.js";
 import { authenticateUser } from "../middlewares/auth.middleware.js";
 
